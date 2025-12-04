@@ -25,13 +25,13 @@ const Main = () => {
     <Layout>
       <Container maxWidth="1260px">
         <StyledMainWrap>
-          <h1>기업이 가장 찾고 싶어하는!</h1>
+          <Text variant="subtitle">전체 공고 목록</Text>
           <Dropdown
             label="버튼 1"
             options={['전체', '블록체인', '프론트', '백엔드']}
             onChange={handleDropdownChange}
           />
-          <span>공고를 만들었어요</span>
+          <Text variant="title">관련 공고들을 모았어요!</Text>
 
           <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
             {/* ButtonPlay의 3번 버튼 설정 */}
