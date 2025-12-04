@@ -8,9 +8,9 @@ const StyledFooterText = styled.p`
   opacity: 0.75; // 피그마 색상 옆에 보면 75% 0 ~ 1
 `;
 
-const FooterText = ({ fontSize, fonWeight, children }) => {
+const FooterText = ({ fontSize, fontWeight, children }) => {
   return (
-    <StyledFooterText fontSize={fontSize} fonWeight={fonWeight}>
+    <StyledFooterText fontSize={fontSize} fontWeight={fontWeight}>
       {children}
     </StyledFooterText>
   );

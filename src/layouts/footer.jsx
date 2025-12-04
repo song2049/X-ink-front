@@ -29,10 +29,10 @@ const Footer = () => {
         </FooterText>
       </div>
       <div className="footer-list">
-        <FooterText fontSize={'14px'} fontWeight={'700'}>
+        <FooterText fontSize={'14px'} fontWeight={'900'}>
           이용 약관
         </FooterText>
-        <FooterText fontSize={'14px'} fontWeight={'700'}>
+        <FooterText fontSize={'14px'} fontWeight={'900'}>
           개인정보처리방침
         </FooterText>
       </div>

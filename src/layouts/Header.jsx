@@ -11,6 +11,7 @@ const StyledHeaderWrap = styled.header`
   flex-direction: column;
   align-items: center;
   border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 2px #c8c8c8;
 `;
 
 const HeaderInner = styled.div`
