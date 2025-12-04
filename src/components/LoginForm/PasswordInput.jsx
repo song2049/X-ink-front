@@ -14,9 +14,16 @@ const StyledPasswordInput = styled.input`
   }
 `;
 
-const PasswordInput = () => {
+const PasswordInput = ({ state, dispatch }) => {
   return (
-    <StyledPasswordInput type="password" placeholder="비밀번호를 입력하세요" />
+    <StyledPasswordInput
+      type="password"
+      placeholder="비밀번호를 입력하세요"
+      value={state.password}
+      onChange={(e) =>
+        dispatch({ type: 'SET_PASSWORD', payload: e.target.value })
+      }
+    />
   );
 };
 

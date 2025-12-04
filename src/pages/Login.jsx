@@ -9,25 +9,6 @@ const StyledLoginPage = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  & > .login {
-  }
-
-  & > .login > .login-main {
-  }
-
-  & > .login > .login-main > .login-link-button {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
-
-  & > .login > .login-main > .login-link-button > p {
-    font-size: 14px;
-    font-weight: 350;
-  }
 `;
 
 const Login = () => {

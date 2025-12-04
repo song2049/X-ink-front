@@ -14,8 +14,15 @@ const StyledEmailInput = styled.input`
   }
 `;
 
-const EmailInput = () => {
-  return <StyledEmailInput type="email" placeholder="이메일을 입력하세요" />;
+const EmailInput = ({ state, dispatch }) => {
+  return (
+    <StyledEmailInput
+      type="email"
+      placeholder="이메일을 입력하세요"
+      value={state.email}
+      onChange={(e) => dispatch({ type: 'SET_EMAIL', payload: e.target.value })}
+    />
+  );
 };
 
 export default EmailInput;
