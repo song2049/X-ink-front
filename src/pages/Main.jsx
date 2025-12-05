@@ -10,26 +10,32 @@ const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  min-height: 100%;
-`;
-
-const PageTitle = styled.div`
-  margin-bottom: 20px;
 `;
 
 const Main = () => {
-  // 검색 핸들러
-  const handleSearch = () => {
-    console.log('검색 실행');
-  };
-
-  // 필터 변경 핸들러
-  const handleFilterChange = (value) => {
-    console.log('필터 변경:', value);
-  };
-
-  // 카드 데이터 (실제로는 API에서 받아올 데이터)
+  // 카드 데이터 (나중에 API에서 받아올 예정)
   const cardData = [
+    {
+      image: thumbnailImage,
+      dday: 'D-7',
+      label: '프론트엔드',
+      title: 'React 개발자 모집',
+      description: '프론트엔드 개발자를 찾습니다',
+    },
+    {
+      image: thumbnailImage,
+      dday: 'D-7',
+      label: '프론트엔드',
+      title: 'React 개발자 모집',
+      description: '프론트엔드 개발자를 찾습니다',
+    },
+    {
+      image: thumbnailImage,
+      dday: 'D-7',
+      label: '프론트엔드',
+      title: 'React 개발자 모집',
+      description: '프론트엔드 개발자를 찾습니다',
+    },
     {
       image: thumbnailImage,
       dday: 'D-7',
@@ -72,23 +78,48 @@ const Main = () => {
       title: 'Next.js 개발자 모집',
       description: '프론트엔드 개발자를 찾습니다',
     },
+    {
+      image: thumbnailImage,
+      dday: 'D-12',
+      label: '백엔드',
+      title: 'Java 개발자 모집',
+      description: '백엔드 개발자를 찾습니다',
+    },
+    {
+      image: thumbnailImage,
+      dday: 'D-8',
+      label: '프론트엔드',
+      title: 'Next.js 개발자 모집',
+      description: '프론트엔드 개발자를 찾습니다',
+    },
+    {
+      image: thumbnailImage,
+      dday: 'D-12',
+      label: '백엔드',
+      title: 'Java 개발자 모집',
+      description: '백엔드 개발자를 찾습니다',
+    },
+    {
+      image: thumbnailImage,
+      dday: 'D-8',
+      label: '프론트엔드',
+      title: 'Next.js 개발자 모집',
+      description: '프론트엔드 개발자를 찾습니다',
+    },
   ];
 
   return (
     <Layout>
       <Container maxWidth="1260px">
         <PageWrapper>
-          <PageTitle>
-            <Text variant="subtitle">전체 공고 목록</Text>
-          </PageTitle>
+          {/* 페이지 제목 */}
+          <Text variant="title">전체 공고 목록</Text>
 
-          <SearchSection
-            onSearch={handleSearch}
-            onFilterChange={handleFilterChange}
-            filterOptions={['전체', '블록체인', '프론트', '백엔드']}
-          />
+          {/* 검색 영역 */}
+          <SearchSection />
 
-          <CardGrid cards={cardData} variant="default" />
+          {/* 카드 목록 */}
+          <CardGrid cards={cardData} />
         </PageWrapper>
       </Container>
     </Layout>

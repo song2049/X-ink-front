@@ -5,7 +5,7 @@ const StyledTitleText = styled.p`
   font-weight: 700;
   color: #3a4044;
   line-height: 24px;
-  text-align: center;
+
 `;
 const StyledSubtitleText = styled.p`
   font-size: 18px;

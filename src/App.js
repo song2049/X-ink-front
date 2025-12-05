@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
 import InputPlay from './playground/InputPlay';
 import CardPlay from './playground/CardPlay';
+import SearchSection from './sections/SearchSection/SearchSection';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login/company" element={<CompanyLogin />} />
         <Route path="/input" element={<InputPlay />} />
         <Route path="/card" element={<CardPlay />} />
+        <Route path="/search" element={<SearchSection />} />
       </Routes>
     </BrowserRouter>
   );

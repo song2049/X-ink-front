@@ -6,7 +6,8 @@ import Input from '../../components/Inputs/Input';
 
 const SectionWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: space-between;
+  justify-content: space-between;
   gap: 20px;
   margin: 20px 0;
 `;
@@ -23,35 +24,34 @@ const SearchRow = styled.div`
   gap: 12px;
 `;
 
-/**
- * SearchSection - 검색 및 필터 영역
- * @param {function} onSearch - 검색 버튼 클릭 핸들러
- * @param {function} onFilterChange - 필터 변경 핸들러
- * @param {Array} filterOptions - 필터 옵션 배열
- */
-const SearchSection = ({ onSearch, onFilterChange, filterOptions }) => {
+const SearchSection = () => {
+  const handleSearch = () => {
+    console.log('검색 실행');
+  };
+
+  const handleFilterChange = (value) => {
+    console.log('필터 변경:', value);
+  };
+
   return (
     <SectionWrapper>
+      {/* 필터 영역 */}
       <FilterRow>
         <Dropdown
           label="전체"
-          options={filterOptions || ['전체', '블록체인', '프론트', '백엔드']}
-          onChange={onFilterChange}
+          options={['전체', '블록체인', '프론트', '백엔드']}
+          onChange={handleFilterChange}
         />
         <Text variant="title">관련 공고들을 모았어요!</Text>
       </FilterRow>
 
+      {/* 검색 영역 */}
       <SearchRow>
-        <Input
-          variant="search"
-          maxWidth="100%"
-          placeholder="검색어를 입력해주세요."
-        />
-        <Button label="검색" variant="blue" size="sm" onClick={onSearch} />
+        <Input variant="search" maxWidth="100%" placeholder="검색어를 입력해주세요." />
+        <Button label="검색" variant="blue" size="sm" onClick={handleSearch} />
       </SearchRow>
     </SectionWrapper>
   );
 };
 
 export default SearchSection;
-
