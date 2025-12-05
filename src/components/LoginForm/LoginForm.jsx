@@ -36,7 +36,7 @@ const LoginForm = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        'http://localhost:3001/auth/login',
+        `${process.env.REACT_APP_BACK_URL}/auth/login`,
         {
           email: state.email,
           password: state.password,
