@@ -13,6 +13,7 @@ import SearchSection from './sections/SearchSection/SearchSection';
 import BreadcrumbPlay from './playground/BreadcrumbPlay';
 import CardGrid from './sections/CardGrid/CardGrid';
 import TextsPlay from './playground/TextsPlay';
+import SpreaterPlay from './playground/SpreaterPlay';
 
 
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/breadcrumb" element={<BreadcrumbPlay />} />
         <Route path="/cardgrid" element={<CardGrid />} />
         <Route path="/texts" element={<TextsPlay />} />
+        <Route path="/spreater" element={<SpreaterPlay />} />
 
       </Routes>
     </BrowserRouter>
