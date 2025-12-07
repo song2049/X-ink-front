@@ -17,6 +17,7 @@ import SpreaterPlay from './playground/SpreaterPlay';
 import StepsPlay from './playground/StepsPlay';
 import CheckPlay from './playground/CheckPlay';
 import LabelPlay from './playground/LabelPlay';
+import RadioPlay from './playground/RadioPlay';
 
 
 
@@ -41,10 +42,8 @@ function App() {
         <Route path="/steps" element={<StepsPlay />} />
         <Route path="/check" element={<CheckPlay />} />
         <Route path="/label" element={<LabelPlay />} />
-         
-
-        
-
+        <Route path="/radio" element={<RadioPlay />} />
+    
       </Routes>
     </BrowserRouter>
   );
