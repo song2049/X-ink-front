@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Input from '../components/Inputs/Input';
+import TextArea from '../components/Inputs/TextArea';
 
 const PlaygroundContainer = styled.div`
   padding: 40px;
@@ -32,6 +33,12 @@ const InputPlay = () => {
       <Section>
         <SectionTitle>1. 기본 인풋 (400x48)</SectionTitle>
         <Input variant="basic" placeholder="기본 입력창입니다" />
+      </Section>
+
+      <Section>
+        <SectionTitle>4. TextArea (590x200)</SectionTitle>
+        {/* TextArea is a standalone component to show multi-line input with label */}
+        <TextArea label="메모" placeholder="일단 오시면 클로드 먼저 설치할 줄 아셔야 하구요 그 다음에...." />
       </Section>
 
       <Section>
