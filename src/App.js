@@ -1,17 +1,16 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Main from './pages/Main';
-import ButtonPlay from './playground/ButtonPlay';
-import Header from './layouts/Header';
-import TextPlay from './playground/TextPlay';
-import Layout from './layouts/Layout';
 import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
+import { AuthProvider } from './contexts/AuthContext';
+
+// Playground imports (개발/테스트용)
+import ButtonPlay from './playground/ButtonPlay';
+import TextPlay from './playground/TextPlay';
 import InputPlay from './playground/InputPlay';
 import CardPlay from './playground/CardPlay';
-import SearchSection from './sections/SearchSection/SearchSection';
 import BreadcrumbPlay from './playground/BreadcrumbPlay';
-import CardGrid from './sections/CardGrid/CardGrid';
 import TextsPlay from './playground/TextsPlay';
 import SpreaterPlay from './playground/SpreaterPlay';
 import StepsPlay from './playground/StepsPlay';
@@ -22,25 +21,33 @@ import DropdownPlay from './playground/DropdownPlay';
 import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
-import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/* 메인 페이지 */}
           <Route path="/" element={<Main />} />
-          <Route path="/button" element={<ButtonPlay />} />
-          <Route path="/header" element={<Header />} />
-          <Route path="/text" element={<TextPlay />} />
-          <Route path="/layout" element={<Layout />} />
+          
+          {/* 로그인 페이지 */}
           <Route path="/login" element={<Login />} />
           <Route path="/login/company" element={<CompanyLogin />} />
+          
+          {/* TODO: 추가 예정 페이지들 */}
+          {/* <Route path="/signup" element={<Signup />} /> */}
+          {/* <Route path="/profile" element={<ProfilePage />} /> */}
+          {/* <Route path="/my-applications" element={<MyApplications />} /> */}
+          {/* <Route path="/job-management" element={<JobManagement />} /> */}
+          {/* <Route path="/applicant-management" element={<ApplicantManagement />} /> */}
+          {/* <Route path="/search" element={<JobSearch />} /> */}
+          
+          {/* Playground 라우트 (개발/테스트용) */}
+          <Route path="/button" element={<ButtonPlay />} />
+          <Route path="/text" element={<TextPlay />} />
           <Route path="/input" element={<InputPlay />} />
           <Route path="/card" element={<CardPlay />} />
-          <Route path="/search" element={<SearchSection />} />
           <Route path="/breadcrumb" element={<BreadcrumbPlay />} />
-          <Route path="/cardgrid" element={<CardGrid />} />
           <Route path="/texts" element={<TextsPlay />} />
           <Route path="/spreater" element={<SpreaterPlay />} />
           <Route path="/steps" element={<StepsPlay />} />

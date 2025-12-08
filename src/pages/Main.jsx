@@ -5,6 +5,7 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import thumbnailImage from '../assets/images/image.png';
+import { useAuth } from '../contexts/AuthContext';
 
 const PageWrapper = styled.div`
   display: flex;
@@ -12,7 +13,22 @@ const PageWrapper = styled.div`
   gap: 20px;
 `;
 
+
 const Main = () => {
+  const { user, isAuthenticated, isCompany, loading } = useAuth();
+
+  // 디버깅: Main 페이지 렌더링 시 상태 확인
+  console.log('📄 Main 페이지 렌더링:', {
+    isAuthenticated,
+    isCompany,
+    user: user ? {
+      name: user.name || user.companyName,
+      userType: user.userType,
+    } : null,
+    loading,
+  });
+
+ 
   // 카드 데이터 (나중에 API에서 받아올 예정)
   const cardData = [
     {

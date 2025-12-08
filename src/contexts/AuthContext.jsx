@@ -16,9 +16,12 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
       setError(null);
+      console.log('🔄 사용자 정보 로드 중...');
       const userData = await getCurrentUser();
+      console.log('✅ 사용자 정보 로드 성공:', userData);
       setUser(userData);
     } catch (err) {
+      console.error('❌ 사용자 정보 로드 실패:', err.message);
       if (err.message === 'UNAUTHORIZED') {
         setUser(null);
       } else {
@@ -31,7 +34,9 @@ export const AuthProvider = ({ children }) => {
 
   // 로그인 처리
   const login = (userData) => {
+    console.log('🔐 로그인 처리:', userData);
     setUser(userData);
+    setLoading(false);
   };
 
   // 로그아웃 처리

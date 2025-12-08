@@ -102,6 +102,18 @@ const Header = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isCompany, isKakaoUser, logout, loading } = useAuth();
 
+  // 디버깅: 헤더 렌더링 시 상태 확인
+  console.log('🎨 Header 렌더링:', {
+    isAuthenticated,
+    isCompany,
+    user: user ? {
+      name: user.name || user.companyName,
+      userType: user.userType,
+      loginType: user.loginType,
+    } : null,
+    loading,
+  });
+
   // 로고 클릭 시 홈으로 이동
   const handleLogoClick = () => {
     navigate('/');

@@ -47,7 +47,7 @@ const LoginForm = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { login, refresh } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,22 +55,36 @@ const LoginForm = () => {
     setIsLoading(true);
 
     try {
+      console.log('📝 로그인 시도:', state.email);
+
       // API 호출
       const response = await loginLocal(state.email, state.password);
-      
+      console.log('✅ 로그인 API 응답:', response);
+
+      // 백엔드 응답 검증
+      if (!response.user) {
+        console.error('❌ 백엔드 응답에 user 필드가 없습니다!');
+        setError(
+          '로그인 응답 형식이 올바르지 않습니다. 백엔드 개발자에게 문의하세요.',
+        );
+        return;
+      }
+
       // AuthContext에 사용자 정보 저장
       login(response.user);
-      
-      // 사용자 정보 새로고침
-      await refresh();
-      
-      // 메인 페이지로 이동
-      navigate('/');
-      
+      console.log('✅ AuthContext에 사용자 정보 저장 완료');
+
       // 성공 메시지
       alert(response.message || '로그인 성공!');
+
+      // 메인 페이지로 이동
+      console.log('🔄 메인 페이지로 이동');
+      navigate('/');
+
+      // 참고: refresh()는 백엔드에 /auth/me 엔드포인트가 구현되면 활성화
+      //   const { login, refresh } = useAuth();         // await refresh();
     } catch (error) {
-      console.error('로그인 에러:', error);
+      console.error('❌ 로그인 에러:', error);
       
       if (error.message === 'UNAUTHORIZED') {
         setError('이메일 또는 비밀번호가 올바르지 않습니다.');
