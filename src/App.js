@@ -22,6 +22,7 @@ import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
 import IconPlay from './playground/IconPlay';
+import Join from './pages/Join';
 
 function App() {
   return (
@@ -30,11 +31,14 @@ function App() {
         <Routes>
           {/* 메인 페이지 */}
           <Route path="/" element={<Main />} />
-          
+
           {/* 로그인 페이지 */}
           <Route path="/volunteer-login" element={<Login />} />
           <Route path="/companies-login" element={<CompanyLogin />} />
-          
+
+          {/* 회원가입 페이지 */}
+          <Route path="/join" element={<Join />} />
+
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
@@ -42,7 +46,7 @@ function App() {
           {/* <Route path="/job-management" element={<JobManagement />} /> */}
           {/* <Route path="/applicant-management" element={<ApplicantManagement />} /> */}
           {/* <Route path="/search" element={<JobSearch />} /> */}
-          
+
           {/* Playground 라우트 (개발/테스트용) */}
           <Route path="/button" element={<ButtonPlay />} />
           <Route path="/text" element={<TextPlay />} />
