@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const StyledLoginButton = styled.button`
   background: #272727;
@@ -12,10 +13,26 @@ const StyledLoginButton = styled.button`
   line-height: 28px;
   letter-spacing: -0.5px;
   cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
 
 const LoginButton = () => {
-  return <StyledLoginButton>로그인</StyledLoginButton>;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/login');
+  };
+
+  return <StyledLoginButton onClick={handleClick}>로그인</StyledLoginButton>;
 };
 
 export default LoginButton;
