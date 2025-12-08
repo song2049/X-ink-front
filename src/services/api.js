@@ -5,7 +5,6 @@
 import { API_BASE_URL, AUTH_PREFIX } from './baseurl.config';
 import { fetchAPI } from './fetch.config';
 
-
 /**
  * 현재 로그인한 사용자 정보 가져오기
  * @returns {Promise<Object>} 사용자 정보
@@ -27,13 +26,13 @@ export const logout = async () => {
 };
 
 /**
- * 지원자 로그인
- * @param {string} email 
- * @param {string} password 
+ * 로컬 로그인
+ * @param {string} email
+ * @param {string} password
  * @returns {Promise<Object>}
  */
 export const volunteerLogin = async (email, password) => {
-    return await fetchAPI(`${AUTH_PREFIX}/volunteer-login`, {
+  return await fetchAPI(`${AUTH_PREFIX}/volunteer-login`, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
   });
@@ -41,20 +40,20 @@ export const volunteerLogin = async (email, password) => {
 
 /**
  * 기업 로그인
- * @param {string} email 
- * @param {string} password 
+ * @param {string} email
+ * @param {string} password
  * @returns {Promise<Object>}
  */
 export const companiesLogin = async (email, password) => {
-    return await fetchAPI(`${AUTH_PREFIX}/companies-login`, {
-        method: 'POST',
-        body: JSON.stringify({ email, password }),
-    });
+  return await fetchAPI(`${AUTH_PREFIX}/companies-login`, {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+  });
 };
 
 /**
  * 회원가입
- * @param {Object} userData 
+ * @param {Object} userData
  * @returns {Promise<Object>}
  */
 export const registerUser = async (userData) => {
@@ -110,13 +109,13 @@ export const getJobs = async () => {
  */
 export const getJobsFiltered = async (filters = {}) => {
   const queryParams = new URLSearchParams();
-  
+
   if (filters.position) queryParams.append('position', filters.position);
   if (filters.status) queryParams.append('status', filters.status);
-  
+
   const queryString = queryParams.toString();
   const endpoint = queryString ? `/jobs?${queryString}` : '/jobs';
-  
+
   return await fetchAPI(endpoint, {
     method: 'GET',
   });
@@ -133,4 +132,3 @@ export default {
   getJobs,
   getJobsFiltered,
 };
-
