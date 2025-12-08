@@ -20,6 +20,7 @@ import LabelPlay from './playground/LabelPlay';
 import RadioPlay from './playground/RadioPlay';
 import DropdownPlay from './playground/DropdownPlay';
 import PaginationPlay from './playground/PaginationPlay';
+import ProfilePlay from './playground/ProfilePlay';
 
 
 
@@ -47,7 +48,7 @@ function App() {
         <Route path="/radio" element={<RadioPlay />} />
         <Route path="/dropdown" element={<DropdownPlay />} />
         <Route path="/pagination" element={<PaginationPlay />} />
-
+        <Route path="/profile" element={<ProfilePlay />} />
 
     
       </Routes>
