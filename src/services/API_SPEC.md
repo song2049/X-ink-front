@@ -200,6 +200,57 @@ accessToken={token}; HttpOnly; Secure; SameSite=Strict; Max-Age=86400
 
 ---
 
+### 6. 전체 공고 목록 조회
+
+**GET** `/jobs`
+
+모든 채용 공고를 조회합니다.
+
+**Query Parameters (선택):**
+```
+position={포지션}  // 예: "프론트엔드", "백엔드"
+status={상태}      // 예: "OPEN", "CLOSE"
+```
+
+**Response:**
+```json
+[
+  {
+    "id": 1,
+    "companyId": 1,
+    "companyName": "1등기업",
+    "title": "24시간 풀근무 가능한 개발자 찾습니다.",
+    "dday": "D-22",
+    "position": "프론트엔드",
+    "status": "OPEN"
+  },
+  {
+    "id": 2,
+    "companyId": 2,
+    "companyName": "2등기업",
+    "title": "우리회사의 발닦개 개발자를 찾습니다",
+    "dday": "D-22",
+    "position": "프론트엔드",
+    "status": "OPEN"
+  }
+]
+```
+
+**필드 설명:**
+- `id`: 공고 고유 ID
+- `companyId`: 공고를 올린 기업 ID
+- `companyName`: 기업명
+- `title`: 공고 제목
+- `dday`: 마감일까지 남은 일수 (백엔드에서 계산)
+- `position`: 포지션 (프론트엔드, 백엔드, 블록체인 등)
+- `status`: 공고 상태 ("OPEN", "CLOSE")
+
+**Note:** 
+- `dday`는 백엔드에서 DEAD_LINE과 현재 시간을 계산하여 "D-{일수}" 형식으로 반환
+- 프론트엔드에서 별도 가공 불필요
+
+---
+
 ## 데이터 타입 정의
 
 ### User (개인 회원)
@@ -230,6 +281,19 @@ accessToken={token}; HttpOnly; Secure; SameSite=Strict; Max-Age=86400
 }
 ```
 
+### Job (공고)
+```typescript
+{
+  id: number;
+  companyId: number;
+  companyName: string;
+  title: string;
+  dday: string;  // "D-22" 형식 (백엔드에서 계산)
+  position: string;  // "프론트엔드", "백엔드", "블록체인" 등
+  status: "OPEN" | "CLOSE";
+}
+```
+
 ---
 
 ## 에러 코드
@@ -250,7 +314,7 @@ accessToken={token}; HttpOnly; Secure; SameSite=Strict; Max-Age=86400
 ## 프론트엔드 사용 예시
 
 ```javascript
-import { getCurrentUser, loginLocal, logout } from './services/api';
+import { getCurrentUser, loginLocal, logout, getJobs } from './services/api';
 
 // 1. 사용자 정보 조회
 const user = await getCurrentUser();
@@ -260,6 +324,12 @@ const loginData = await loginLocal('user@example.com', 'password123');
 
 // 3. 로그아웃
 await logout();
+
+// 4. 전체 공고 목록 조회
+const jobs = await getJobs();
+
+// 5. 필터링된 공고 목록 조회
+const frontendJobs = await getJobsFiltered({ position: '프론트엔드', status: 'OPEN' });
 ```
 
 ---

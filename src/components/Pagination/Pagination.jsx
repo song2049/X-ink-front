@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { ArrowIcon, DoubleArrowIcon } from '../Icons';
 
 const PaginationContainer = styled.div`
   display: flex;
@@ -9,7 +10,9 @@ const PaginationContainer = styled.div`
   gap: 5px;
   width: fit-content;
   height: 32px;
+  margin-left: auto; /* 오른쪽으로 밀기 */
 `;
+
 
 const Control = styled.button`
   box-sizing: border-box;
@@ -90,42 +93,11 @@ const Ellipsis = styled.div`
   color: #333333;
 `;
 
-const Icon = styled.svg`
-  width: 16px;
-  height: 16px;
-`;
-
-const FirstIcon = () => (
-  <Icon viewBox="0 0 16 16" fill="none">
-    <path d="M11 4L7 8L11 12" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M7 4L3 8L7 12" stroke="#333333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </Icon>
-);
-
-const PrevIcon = () => (
-  <Icon viewBox="0 0 16 16" fill="none">
-    <path d="M10 4L6 8L10 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </Icon>
-);
-
-const NextIcon = () => (
-  <Icon viewBox="0 0 16 16" fill="none">
-    <path d="M6 4L10 8L6 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </Icon>
-);
-
-const LastIcon = () => (
-  <Icon viewBox="0 0 16 16" fill="none">
-    <path d="M5 4L9 8L5 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    <path d="M9 4L13 8L9 12" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-  </Icon>
-);
-
 const Pagination = ({ 
   currentPage = 1, 
   totalPages = 10, 
   onPageChange,
-  maxVisiblePages = 5 
+  maxVisiblePages = 3 
 }) => {
   const [activePage, setActivePage] = useState(currentPage);
 
@@ -181,7 +153,7 @@ const Pagination = ({
         disabled={activePage === 1}
         aria-label="첫 페이지"
       >
-        <FirstIcon />
+        <DoubleArrowIcon direction="left" color="#333333" fontSize="12px" />
       </Control>
 
       {/* Previous Page */}
@@ -190,7 +162,7 @@ const Pagination = ({
         disabled={activePage === 1}
         aria-label="이전 페이지"
       >
-        <PrevIcon />
+        <ArrowIcon direction="left" color="#000000" fontSize="14px" />
       </Control>
 
       {/* Page Numbers */}
@@ -217,7 +189,7 @@ const Pagination = ({
         disabled={activePage === totalPages}
         aria-label="다음 페이지"
       >
-        <NextIcon />
+        <ArrowIcon direction="right" color="#000000" fontSize="14px" />
       </Control>
 
       {/* Last Page */}
@@ -226,7 +198,7 @@ const Pagination = ({
         disabled={activePage === totalPages}
         aria-label="마지막 페이지"
       >
-        <LastIcon />
+        <DoubleArrowIcon direction="right" color="#000000" fontSize="12px" />
       </Control>
     </PaginationContainer>
   );

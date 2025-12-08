@@ -3,15 +3,15 @@
  * 백엔드 API와 통신하는 함수들을 관리합니다.
  */
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://api.x-ink.store';
-
-// API 경로 설정
+const API_BASE_URL = process.env.REACT_APP_BACK_URL || 'https://api.x-ink.store';
+console.log(process.env.REACT_APP_BACK_URL);
+    // API 경로 설정
 // 백엔드가 API 명세서대로 구현하면 '/api/auth'로 변경
 const AUTH_PREFIX = '/auth'; // 현재: /auth  |  나중: /api/auth
 
 // 디버깅: 환경 변수 확인
 console.log('🔧 환경 변수 체크:');
-console.log('REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
+console.log('REACT_APP_BACK_URL:', process.env.REACT_APP_BACK_URL);
 console.log('최종 API_BASE_URL:', API_BASE_URL);
 console.log('AUTH_PREFIX:', AUTH_PREFIX);
 
@@ -30,13 +30,6 @@ const fetchAPI = async (endpoint, options = {}) => {
 
   const fullURL = `${API_BASE_URL}${endpoint}`;
   
-  // 디버깅: 실제 호출되는 URL 확인
-  console.log('===== API 요청 =====');
-  console.log('📍 URL:', fullURL);
-  console.log('🔧 Method:', config.method || 'GET');
-  console.log('📦 Body:', options.body);
-  console.log('===================');
-
   try {
     const response = await fetch(fullURL, config);
     
@@ -88,16 +81,29 @@ export const logout = async () => {
 };
 
 /**
- * 로컬 로그인
+ * 지원자 로그인
  * @param {string} email 
  * @param {string} password 
  * @returns {Promise<Object>}
  */
-export const loginLocal = async (email, password) => {
-  return await fetchAPI(`${AUTH_PREFIX}/login`, {
+export const volunteerLogin = async (email, password) => {
+    return await fetchAPI(`${AUTH_PREFIX}/volunteer-login`, {
     method: 'POST',
     body: JSON.stringify({ email, password }),
   });
+};
+
+/**
+ * 기업 로그인
+ * @param {string} email 
+ * @param {string} password 
+ * @returns {Promise<Object>}
+ */
+export const companiesLogin = async (email, password) => {
+    return await fetchAPI(`${AUTH_PREFIX}/companies-login`, {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+    });
 };
 
 /**
@@ -139,12 +145,46 @@ export const checkServerHealth = async () => {
   }
 };
 
+/**
+ * 전체 공고 목록 가져오기
+ * @returns {Promise<Array>} 공고 목록
+ */
+export const getJobs = async () => {
+  return await fetchAPI('/jobs', {
+    method: 'GET',
+  });
+};
+
+/**
+ * 필터링된 공고 목록 가져오기
+ * @param {Object} filters - 필터 옵션
+ * @param {string} filters.position - 포지션 필터 (예: "프론트엔드", "백엔드")
+ * @param {string} filters.status - 상태 필터 (예: "OPEN", "CLOSE")
+ * @returns {Promise<Array>} 공고 목록
+ */
+export const getJobsFiltered = async (filters = {}) => {
+  const queryParams = new URLSearchParams();
+  
+  if (filters.position) queryParams.append('position', filters.position);
+  if (filters.status) queryParams.append('status', filters.status);
+  
+  const queryString = queryParams.toString();
+  const endpoint = queryString ? `/jobs?${queryString}` : '/jobs';
+  
+  return await fetchAPI(endpoint, {
+    method: 'GET',
+  });
+};
+
 export default {
   getCurrentUser,
   logout,
-  loginLocal,
+  volunteerLogin,
+  companiesLogin,
   registerUser,
   kakaoLoginCallback,
   checkServerHealth,
+  getJobs,
+  getJobsFiltered,
 };
 

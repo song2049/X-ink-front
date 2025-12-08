@@ -21,6 +21,7 @@ import DropdownPlay from './playground/DropdownPlay';
 import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
+import IconPlay from './playground/IconPlay';
 
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
           <Route path="/" element={<Main />} />
           
           {/* 로그인 페이지 */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/login/company" element={<CompanyLogin />} />
+          <Route path="/volunteer-login" element={<Login />} />
+          <Route path="/companies-login" element={<CompanyLogin />} />
           
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
@@ -58,6 +59,7 @@ function App() {
           <Route path="/pagination" element={<PaginationPlay />} />
           <Route path="/profile" element={<ProfilePlay />} />
           <Route path="/header-test" element={<HeaderTestPlay />} />
+          <Route path="/icon" element={<IconPlay />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -38,7 +38,7 @@ const Label = styled.label`
   font-size: 16px;
   line-height: 16px;
   color: #000000;
-
+  // *라벨 색상 
   & .required {
     color: #2c6aa9;
   }

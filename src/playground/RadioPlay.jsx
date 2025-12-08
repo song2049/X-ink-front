@@ -35,6 +35,7 @@ const RadioPlay = () => {
           <div style={{ display: 'flex', gap: 8 }}>
             <Button radius={'4px'}>블록체인</Button>
             <Button border={'1px solid #2C6AA9'} radius={'4px'} color={'#2c6aa9'} backgroundColor={'#ffffff'} >프론트엔드</Button>
+            <Button border={'1px solid #2C6AA9'} radius={'4px'} color={'#2c6aa9'} backgroundColor={'#ffffff'} >백엔드</Button>
           </div>
         </div>
       </div>

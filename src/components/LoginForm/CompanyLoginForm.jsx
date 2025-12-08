@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import EmailInput from './EmailInput';
 import PasswordInput from './PasswordInput';
 import LoginButton from './LoginButton';
-import { loginLocal } from '../../services/api';
+import { companiesLogin } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
 
 const initState = {
@@ -58,7 +58,7 @@ const CompanyLoginForm = () => {
       console.log('📝 기업 로그인 시도:', state.email);
 
       // API 호출 (백엔드에서 이메일로 사용자 타입 구분)
-      const response = await loginLocal(state.email, state.password);
+      const response = await companiesLogin(state.email, state.password);
       console.log('✅ 로그인 API 응답:', response);
 
       // 백엔드 응답 검증

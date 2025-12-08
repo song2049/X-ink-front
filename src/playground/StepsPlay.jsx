@@ -16,22 +16,79 @@ const StepsPlay = () => {
   ];
 
   return (
-    <div style={{ padding: 24, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <h2 style={{ fontFamily: 'Inter, sans-serif', marginBottom: 32 }}>Steps Component</h2>
+    <div
+      style={{ padding: 24, backgroundColor: '#f5f5f5', minHeight: '100vh' }}
+    >
+      <h2 style={{ fontFamily: 'Inter, sans-serif', marginBottom: 32 }}>
+        Steps Component
+      </h2>
 
-      <div style={{ backgroundColor: 'white', padding: 24, borderRadius: 8, marginBottom: 24 }}>
-        <div style={{ marginBottom: 16, fontWeight: 600 }}>1 — Active index = 0</div>
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: 24,
+          borderRadius: 8,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ marginBottom: 16, fontWeight: 600 }}>원본</div>
         <Stepper steps={steps} activeIndex={0} />
       </div>
 
-      <div style={{ backgroundColor: 'white', padding: 24, borderRadius: 8, marginBottom: 24 }}>
-        <div style={{ marginBottom: 16, fontWeight: 600 }}>2 — Active index = 1 (1번완료 2진행중)</div>
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: 24,
+          borderRadius: 8,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ marginBottom: 16, fontWeight: 600 }}>
+          0 — Active index = 0 (1번 진행중)
+        </div>
+        <Stepper steps={steps2} activeIndex={0} />
+      </div>
+
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: 24,
+          borderRadius: 8,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ marginBottom: 16, fontWeight: 600 }}>
+          1 — Active index = 1 (1번 완료 2번 진행)
+        </div>
         <Stepper steps={steps2} activeIndex={1} />
       </div>
 
-      <div style={{ backgroundColor: 'white', padding: 24, borderRadius: 8, marginBottom: 24 }}>
-        <div style={{ marginBottom: 16, fontWeight: 600 }}>3 — Active index = 2 (3진행중)</div>
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: 24,
+          borderRadius: 8,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ marginBottom: 16, fontWeight: 600 }}>
+          2 — Active index = 2 (1번 완료 2번 완료 3번 진행)
+        </div>
         <Stepper steps={steps2} activeIndex={2} />
+      </div>
+
+      <div
+        style={{
+          backgroundColor: 'white',
+          padding: 24,
+          borderRadius: 8,
+          marginBottom: 24,
+        }}
+      >
+        <div style={{ marginBottom: 16, fontWeight: 600 }}>
+          3 - 전체 진행 완료
+        </div>
+        <Stepper steps={steps2} activeIndex={3} />
       </div>
     </div>
   );
