@@ -1,21 +1,23 @@
 import styled from 'styled-components';
 
-const CIRCLE_SIZE = 34.14;
-const TRAIL_WIDTH = 85.35;
+const CIRCLE_SIZE = 32;
+const TRAIL_WIDTH = 179;
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   width: 100%;
+  margin: 40px 0;
 `;
 
 const StepWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: ${CIRCLE_SIZE + TRAIL_WIDTH}px;
+  width: ${32 + 200}px;
   position: relative;
 `;
 
@@ -32,21 +34,21 @@ const Circle = styled.div`
   line-height: 17px;
 
   &.active {
-    color: #FFFFFF;
-    background: #0162DD;
-    border: 2px solid #0162DD;
+    color: #ffffff;
+    background: #03407e;
+    border: 2px solid #03407e;
   }
 
   &.completed {
-    color: #FFFFFF;
-    background: #0162DD;
-    border: 2px solid #0162DD;
+    color: #ffffff;
+    background: #03407e;
+    border: 2px solid #03407e;
   }
 
   &.default {
-    color: #242E39;
-    background: #FFFFFF;
-    border: 2px solid #A1AEBE;
+    color: #242e39;
+    background: #ffffff;
+    border: 2px solid #a1aebe;
   }
 `;
 
@@ -58,7 +60,7 @@ const Label = styled.div`
 
   &.active {
     font-weight: 700;
-    color: #0162DD;
+    color: #03407e;
   }
 
   &.completed,
@@ -76,21 +78,27 @@ const Trail = styled.div`
   height: 3px;
 
   &.active {
-    background: #0162DD;
+    background: #03407e;
   }
 
   &.default {
-    background: #A1AEBE;
+    background: #a1aebe;
   }
 `;
 
 const CheckIcon = () => (
-  <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
-      d="M2 8L7 13L18 2" 
-      stroke="white" 
-      strokeWidth="3.5" 
-      strokeLinecap="round" 
+  <svg
+    width="20"
+    height="16"
+    viewBox="0 0 20 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M2 8L7 13L18 2"
+      stroke="white"
+      strokeWidth="3.5"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
@@ -102,7 +110,11 @@ const Stepper = ({ steps = [], activeIndex = 0 }) => {
       {steps.map((s, i) => {
         const isActive = i === activeIndex;
         const isCompleted = i < activeIndex;
-        const stateClass = isCompleted ? 'completed' : isActive ? 'active' : 'default';
+        const stateClass = isCompleted
+          ? 'completed'
+          : isActive
+            ? 'active'
+            : 'default';
 
         return (
           <StepWrapper key={s.key || i}>

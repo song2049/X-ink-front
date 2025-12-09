@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const StyledCreateUserButton = styled.button`
   width: fit-content;
@@ -14,10 +15,26 @@ const StyledCreateUserButton = styled.button`
   letter-spacing: -0.5px;
   align-content: center;
   cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
 `;
 
 const CreateUserButton = () => {
-  return <StyledCreateUserButton>회원가입</StyledCreateUserButton>;
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // TODO: 회원가입 페이지 구현 후 경로 수정
+    navigate('/signup');
+  };
+
+  return <StyledCreateUserButton onClick={handleClick}>회원가입</StyledCreateUserButton>;
 };
 
 export default CreateUserButton;

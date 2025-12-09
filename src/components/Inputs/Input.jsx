@@ -25,36 +25,37 @@ const StyledBasicInput = styled.input`
 
 // 두번째 인풋 (라벨 입력창)
 const LabelInputWrapper = styled.div`
-  width: 590px;
+  width: ${(props) => props.maxWidth || '590px'};
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
 
 const Label = styled.label`
-  width: 590px;
+  width: ${(props) => props.maxWidth || '590px'};
   height: 16px;
   font-weight: 700;
   font-size: 16px;
   line-height: 16px;
-  color: #000000;
-
+  color: #56575f;
+  // *라벨 색상
   & .required {
     color: #2c6aa9;
   }
 `;
 
 const StyledLabelInput = styled.input`
-  width: 590px;
-  height: 54px;
+  width: ${(props) => props.maxWidth || '590px'};
+  height: ${(props) => props.height || '59px'};
   border-radius: 8px;
-  border: 1px solid rgba(128, 128, 128, 0.3);
+  border: 1px solid #808080;
   padding: 12px 14px;
   gap: 10px;
   background-color: #ffffff;
   font-size: 18px;
   font-weight: 400;
   color: #000000;
+  box-sizing: border-box;
 
   &::placeholder {
     color: #c4c4c4;
@@ -114,8 +115,16 @@ const SearchIcon = styled.svg`
 
 // variant에 따라 렌더링
 const renderInputByVariant = (variant, props) => {
-  const { placeholder, label, required, maxWidth, onSearch, ...restProps } =
-    props;
+  const {
+    placeholder,
+    label,
+    required,
+    maxWidth,
+    onSearch,
+    height,
+    type,
+    ...restProps
+  } = props;
 
   switch (variant) {
     case 'basic':
@@ -123,11 +132,17 @@ const renderInputByVariant = (variant, props) => {
 
     case 'label':
       return (
-        <LabelInputWrapper>
-          <Label>
+        <LabelInputWrapper maxWidth={maxWidth}>
+          <Label maxWidth={maxWidth}>
             {label} {required && <span className="required">*</span>}
           </Label>
-          <StyledLabelInput placeholder={placeholder} {...restProps} />
+          <StyledLabelInput
+            maxWidth={maxWidth}
+            placeholder={placeholder}
+            height={height}
+            type={type}
+            {...restProps}
+          />
         </LabelInputWrapper>
       );
 

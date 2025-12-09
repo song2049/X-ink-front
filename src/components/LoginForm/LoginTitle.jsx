@@ -34,8 +34,8 @@ const StyledLoginTitle = styled.div`
 const LoginTitle = () => {
   return (
     <StyledLoginTitle className="login-title">
-      <NavLink to={'/login'}>개인회원</NavLink>
-      <NavLink to={'/login/company'}>기업회원</NavLink>
+      <NavLink to={'/volunteer-login'}>개인회원</NavLink>
+      <NavLink to={'/companies-login'}>기업회원</NavLink>
     </StyledLoginTitle>
   );
 };

@@ -481,7 +481,7 @@ const renderCardByVariant = (variant, props) => {
     dday,
     label,
     title,
-    description,
+    companyName,
     profileImage,
     name,
     email,
@@ -491,7 +491,6 @@ const renderCardByVariant = (variant, props) => {
     bio,
     isApplied,
   } = props;
-
   switch (variant) {
     // Card1 - 기본 카드
     case 'default':
@@ -506,8 +505,8 @@ const renderCardByVariant = (variant, props) => {
           <Content>
             <Label variant="primary">{label}</Label>
             <Frame>
-              <CardTitle>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
+              <CardTitle>{companyName}</CardTitle>
+              <CardDescription>{title}</CardDescription>
             </Frame>
           </Content>
         </StyledCard>
@@ -623,7 +622,7 @@ const renderCardByVariant = (variant, props) => {
             <Label variant="primary">{label}</Label>
             <Frame>
               <CardTitle>{title}</CardTitle>
-              <CardDescription>{description}</CardDescription>
+              <CardDescription>{companyName}</CardDescription>
             </Frame>
           </Content>
         </StyledCard>
