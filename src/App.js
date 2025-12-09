@@ -22,7 +22,9 @@ import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
 import IconPlay from './playground/IconPlay';
-import Join from './pages/Join';
+import JoinStep1 from './pages/JoinStep1';
+import JoinStep2 from './pages/JoinStep2';
+import JoinStep3 from './pages/JoinStep3';
 
 function App() {
   return (
@@ -37,7 +39,9 @@ function App() {
           <Route path="/companies-login" element={<CompanyLogin />} />
 
           {/* 회원가입 페이지 */}
-          <Route path="/join" element={<Join />} />
+          <Route path="/join/step1" element={<JoinStep1 />} />
+          <Route path="/join/step2" element={<JoinStep2 />} />
+          <Route path="/join/step3" element={<JoinStep3 />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
