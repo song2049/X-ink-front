@@ -11,13 +11,16 @@ const Jobs = () => {
   useEffect(() => {
     const JobExists = async () => {
       try {
-        const res = await axios.get('http://localhost:3001/jobs/exists', {
-          withCredentials: true, // 쿠키 포함 필수!
-        });
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_URL}/jobs/exists`,
+          {
+            withCredentials: true,
+          },
+        );
 
         setJobExists(res.data.exists);
       } catch (error) {
-        console.error('공고 존재 여부 확인 실패:', error);
+        console.error('공고가 없다:', error);
       } finally {
         setLoading(false);
       }
@@ -26,7 +29,12 @@ const Jobs = () => {
     JobExists();
   }, []);
 
-  if (loading) return <Layout>로딩중...</Layout>;
+  if (loading)
+    return (
+      <Layout>
+        <div>공고목록을 확인중에 있습니다</div>
+      </Layout>
+    );
   return (
     <Layout>
       {jobExists === false ? <JobsCreateForm /> : <JobsSetting />}
