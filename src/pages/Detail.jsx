@@ -12,19 +12,16 @@ const StyledDetail = styled.div`
   flex-direction: column;
   justify-items: center;
   align-items: center;
-  padding: 40px 330px;
+  padding: 0px 330px;
   gap: 20px;
   width: 100%;
-  max-width: 1260px;
-  height: 636px;
 
   & > .detail-header {
     align-self: flex-start;
-    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0px;
+    padding: 40px 0;
     gap: 10px;
     height: 36px;
   }
