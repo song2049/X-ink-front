@@ -1,17 +1,14 @@
-import Companies from "../layouts/Headers/companies";
+import Companies from '../layouts/Headers/Companies';
 import styled from 'styled-components';
 
-const StyledCompaniesHeader = styled.div`
-
-`
-
+const StyledCompaniesHeader = styled.div``;
 
 const CompaniesHeader = () => {
-    return (
-      <StyledCompaniesHeader>
-        <Companies />
-      </StyledCompaniesHeader>
-    );
-}
+  return (
+    <StyledCompaniesHeader>
+      <Companies />
+    </StyledCompaniesHeader>
+  );
+};
 
 export default CompaniesHeader;
