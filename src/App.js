@@ -4,6 +4,10 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
 import { AuthProvider } from './contexts/AuthContext';
+import JoinStep1 from './pages/JoinStep1';
+import JoinStep2 from './pages/JoinStep2';
+import JoinStep3 from './pages/JoinStep3';
+import Jobs from './pages/Jobs';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -22,9 +26,6 @@ import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
 import IconPlay from './playground/IconPlay';
-import JoinStep1 from './pages/JoinStep1';
-import JoinStep2 from './pages/JoinStep2';
-import JoinStep3 from './pages/JoinStep3';
 import CompaniesHeader from './playground/CompaniesHeader';
 import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
@@ -45,6 +46,9 @@ function App() {
           <Route path="/join/step1" element={<JoinStep1 />} />
           <Route path="/join/step2" element={<JoinStep2 />} />
           <Route path="/join/step3" element={<JoinStep3 />} />
+
+          {/* 공고 관리 페이지 */}
+          <Route path="/jobs" element={<Jobs />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
