@@ -16,11 +16,11 @@ const Wrapper = styled.div`
   line-height: 21px;
   letter-spacing: -0.014em;
   color: #3a4044;
-  width: fit-content;
+
 
   &.primary {
     /* 기업 타이틀 같은 길이가 긴 라벨 */
-    min-width: 149px;
+    width: fit-content;
   }
 
   &.muted {

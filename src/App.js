@@ -27,6 +27,7 @@ import JoinStep2 from './pages/JoinStep2';
 import JoinStep3 from './pages/JoinStep3';
 import CompaniesHeader from './playground/CompaniesHeader';
 import VolunteerHeader from './playground/VolunteerHeader';
+import Detail from './pages/Detail';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
 
           {/* Playground 라우트 (개발/테스트용) */}
           <Route path="/button" element={<ButtonPlay />} />
+          <Route path="/detail/:id" element={<Detail/>}/>
           <Route path="/text" element={<TextPlay />} />
           <Route path="/input" element={<InputPlay />} />
           <Route path="/card" element={<CardPlay />} />
