@@ -4,7 +4,6 @@ import Main from './pages/Main';
 import Login from './pages/Login';
 import CompanyLogin from './pages/CompanyLogin';
 import { AuthProvider } from './contexts/AuthContext';
-import Detail from './pages/Detail';
 
 // Playground imports (개발/테스트용)
 import ButtonPlay from './playground/ButtonPlay';
@@ -23,6 +22,9 @@ import PaginationPlay from './playground/PaginationPlay';
 import ProfilePlay from './playground/ProfilePlay';
 import HeaderTestPlay from './playground/HeaderTestPlay';
 import IconPlay from './playground/IconPlay';
+import JoinStep1 from './pages/JoinStep1';
+import JoinStep2 from './pages/JoinStep2';
+import JoinStep3 from './pages/JoinStep3';
 import CompaniesHeader from './playground/CompaniesHeader';
 import VolunteerHeader from './playground/VolunteerHeader';
 
@@ -33,13 +35,16 @@ function App() {
         <Routes>
           {/* 메인 페이지 */}
           <Route path="/" element={<Main />} />
-          
+
           {/* 로그인 페이지 */}
           <Route path="/volunteer-login" element={<Login />} />
           <Route path="/companies-login" element={<CompanyLogin />} />
 
-          {/* 상세 페이지 */}
-          <Route path="/detail/:id" element={<Detail />} />
+          {/* 회원가입 페이지 */}
+          <Route path="/join/step1" element={<JoinStep1 />} />
+          <Route path="/join/step2" element={<JoinStep2 />} />
+          <Route path="/join/step3" element={<JoinStep3 />} />
+
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
           {/* <Route path="/profile" element={<ProfilePage />} /> */}
@@ -47,7 +52,7 @@ function App() {
           {/* <Route path="/job-management" element={<JobManagement />} /> */}
           {/* <Route path="/applicant-management" element={<ApplicantManagement />} /> */}
           {/* <Route path="/search" element={<JobSearch />} /> */}
-          
+
           {/* Playground 라우트 (개발/테스트용) */}
           <Route path="/button" element={<ButtonPlay />} />
           <Route path="/text" element={<TextPlay />} />
@@ -67,7 +72,6 @@ function App() {
           <Route path="/icon" element={<IconPlay />} />
           <Route path="/companies-header" element={<CompaniesHeader />} />
           <Route path="/volunteer-header" element={<VolunteerHeader />} />
-
         </Routes>
       </BrowserRouter>
     </AuthProvider>
