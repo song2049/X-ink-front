@@ -32,12 +32,7 @@ import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
 import JobsComplete from './pages/JobsComplete';
 import JobApplyComplete from './pages/JobApplyComplete';
-<<<<<<< HEAD
-=======
 import JobApply from './pages/jobApply';
-
-
->>>>>>> develop
 
 function App() {
   return (
