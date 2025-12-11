@@ -32,6 +32,9 @@ import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
 import JobsComplete from './pages/JobsComplete';
 import JobApplyComplete from './pages/JobApplyComplete';
+import JobApply from './pages/jobApply';
+
+
 
 function App() {
   return (
@@ -60,6 +63,7 @@ function App() {
             path="/jobapplyform/complete/:id"
             element={<JobApplyComplete />}
           />
+          <Route path="/jobapply/:id" element={<JobApply />} />
 
           {/* TODO: 추가 예정 페이지들 */}
           {/* <Route path="/signup" element={<Signup />} /> */}
