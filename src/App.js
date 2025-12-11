@@ -32,11 +32,8 @@ import VolunteerHeader from './playground/VolunteerHeader';
 import Detail from './pages/Detail';
 import JobsComplete from './pages/JobsComplete';
 import JobApplyComplete from './pages/JobApplyComplete';
-<<<<<<< Updated upstream
 import JobApply from './pages/jobApply';
-=======
 import Myprofile from './pages/Myprofile';
->>>>>>> Stashed changes
 
 function App() {
   return (

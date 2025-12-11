@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
-import { useState } from 'react';
 import axios from 'axios';
+import { useRef } from 'react';
 
 const StyledMyprofilePage = styled.div`
   display: flex;
@@ -12,18 +12,9 @@ const StyledMyprofilePage = styled.div`
 `;
 
 const Myprofile = () => {
-  const [preview, setPreview] = useState(null);
-
-  const handleChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    setPreview(URL.createObjectURL(file));
-  };
-
+  const fileRef = useRef(null);
   const handleUpload = async () => {
-    const fileInput = document.getElementById('upload');
-    const file = fileInput.files[0];
+    const file = fileRef.current?.files[0];
     if (!file) return alert('파일을 선택하세요.');
 
     const formData = new FormData();
@@ -34,7 +25,7 @@ const Myprofile = () => {
         `${process.env.REACT_APP_BACK_URL}/upload`,
         formData,
         {
-          withCredentials: true,
+          withCredentials: true, // 업로드할때 쿠키 검사하는 로직있음
         },
       );
       alert(data.message);
@@ -46,15 +37,7 @@ const Myprofile = () => {
   return (
     <Layout>
       <StyledMyprofilePage>
-        <input
-          id="upload"
-          type="file"
-          accept="image/*"
-          onChange={handleChange}
-        />
-
-        {preview && <img src={preview} alt="preview" width="200" />}
-
+        <input ref={fileRef} type="file" accept="image/*" />
         <button onClick={handleUpload}>업로드</button>
       </StyledMyprofilePage>
     </Layout>
