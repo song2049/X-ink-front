@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Layout from '../layouts/Layout';
 import Breadcrumb from '../components/Navigation/Breadcrumb';
@@ -6,117 +8,250 @@ import Label from '../components/Labels/Label';
 import Spreater from '../components/Spreater/Spreater';
 import Button from '../components/Buttons/Button';
 import Logo from '../assets/images/Logo.png';
+import { getJobById } from '../services/api';
 
 const StyledJobApply = styled.div`
   display: flex;
   flex-direction: column;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
-  padding: 0px 330px;
+  padding: 40px 0px;
   gap: 20px;
-  width: 100%;
+  width: 1260px;
+  max-width: 1260px;
+  margin: 0 auto;
 
   & > .detail-header {
-    align-self: flex-start;
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 40px 0;
+    justify-content: flex-start;
+
     gap: 10px;
     height: 36px;
+    align-self: stretch;
   }
+
   & > .detail-company-name {
-    align-self: flex-start;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+
+    align-self: stretch;
   }
+
   & > .detail-company-info {
-    align-self: flex-start;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
+    padding: 0px;
     gap: 10px;
+    align-items: center;
+    align-self: stretch;
   }
+
   & > .detail-job-info {
-    align-self: flex-start;
     display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
     gap: 29px;
 
     & > .detail-company-info-img {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0px;
+      gap: 10px;
       width: 350px;
       height: 300px;
-      
+      flex: none;
+
       img {
-        width: 100%;
-        height: 100%;
+        width: 350px;
+        height: 125px;
+       
       }
     }
+
     & > .card-content {
-      width: 881px;
-      height: 413px;
-      padding: 20px;
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
-      gap: 20px;
       align-items: flex-start;
-      justify-content: flex-start;
+      padding: 20px;
+      gap: 20px;
+      width: 881px;
+      height: 479px;
+      background: #ffffff;
       border: 1.5px solid #03407e;
-      box-shadow: 3px 3px 7px 0px #03407e;
+      filter: drop-shadow(3px 3px 7px #03407e);
+      border-radius: 4px;
+      flex: none;
+      flex-grow: 1;
+
+      & > .card-info-header {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        padding: 0px;
+        gap: 10px;
+      }
 
       & > .card-position {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0px;
         gap: 10px;
       }
+
       & > .card-deadline {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0px;
         gap: 10px;
       }
+
       & > .card-description {
         display: flex;
         flex-direction: column;
-        width: 100%;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0px;
         gap: 10px;
-      }
-      & > .card-apply-button > button {
-        display: flex;
         width: 841px;
-        gap: 20px;
-        padding: 16px 0;
+        height: 120px;
+        align-self: stretch;
+      }
+
+      & > .card-apply-button > Button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 16px 0px;
+        width: 841px;
+        height: 46px;
+        background: #2c6aa9;
         border-radius: 4px;
+        align-self: stretch;
       }
     }
   }
 `;
+
 const JobApply = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // status를 한글로 변환
+  const getStatusText = (status) => {
+    return status === 'OPEN' ? '모집중' : '모집마감';
+  };
+
+  // deadline을 한국어 형식으로 변환
+  const formatDeadline = (deadline) => {
+    if (!deadline) return '';
+    const date = new Date(deadline);
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    return `${year}년 ${month}월 ${day}일`;
+  };
+
+  // jobDescription을 줄별로 분리
+  const parseJobDescription = (description) => {
+    if (!description) return [];
+    return description.split('\n').filter(line => line.trim());
+  };
+
+  const handleApply = () => {
+    navigate(`/jobapplyform/${id}`);
+  };
+
+  useEffect(() => {
+    const fetchJob = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const jobData = await getJobById(id);
+        setJob(jobData);
+      } catch (err) {
+        console.error('❌ 공고 상세 정보 로드 실패:', err);
+        setError('공고 정보를 불러오는데 실패했습니다.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchJob();
+    }
+  }, [id]);
+
+  if (loading) {
+    return (
+      <Layout>
+        <StyledJobApply>
+          <Text>공고 정보를 불러오는 중...</Text>
+        </StyledJobApply>
+      </Layout>
+    );
+  }
+
+  if (error || !job) {
+    return (
+      <Layout>
+        <StyledJobApply>
+          <Text color="red">{error || '공고 정보를 찾을 수 없습니다.'}</Text>
+        </StyledJobApply>
+      </Layout>
+    );
+  }
+
+  const descriptionLines = parseJobDescription(job.jobDescription);
+
   return (
     <Layout>
       <StyledJobApply>
         <div className="detail-header">
-          <Breadcrumb items={['공고 목록', 'react 개발자 모집']}></Breadcrumb>
+          <Breadcrumb 
+            items={['전체 공고 목록' , job.title]} 
+            link="/main"
+            weight="700" 
+            size="30px"
+          />
         </div>
         <div className="detail-company-name">
-          <Text variant="header" className="text-left">
-            한국기계전기전자시험연구원
+          <Text variant="title" className="text-left">
+            {job.companyName}
           </Text>
         </div>
         <div className="detail-company-info">
-          <Label variant="primary">블록체인</Label>
-          <Text>(3명 지원)</Text>
+          <Label variant="primary">{job.position}</Label>
+          <Text>({job.volunteerCount || 0}명 지원)</Text>
           <Text variant="title" color="red">
-            D-17
+            {job.dday || ''}
           </Text>
-          <Text variant="title">모집중</Text>
+          <Text variant="title">{getStatusText(job.status)}</Text>
         </div>
         <div className="detail-job-info">
           <div className="detail-company-info-img">
             <img src={Logo} alt="logo" />
           </div>
           <div className="card-content">
-            <Text variant="title">프론트 엔드 구합니다.</Text>
-            <Spreater variant="thin"></Spreater>
+            <Text variant="title">{job.title}</Text>
+            <Spreater variant="thin" />
             <div className="card-position">
               <Text variant="subtitle">포지션</Text>
               <Button
@@ -125,20 +260,27 @@ const JobApply = () => {
                 color={'#2c6aa9'}
                 backgroundColor={'#ffffff'}
               >
-                프론트엔드
+                {job.position}
               </Button>
             </div>
             <div className="card-deadline">
               <Text variant="subtitle">마감일</Text>
-              <Text variant="content">2025년 1월 18일</Text>
+              <Text variant="content">{formatDeadline(job.deadline)}</Text>
             </div>
             <div className="card-description">
               <Text variant="subtitle">업무설명</Text>
-              <Text variant="content"> · 담당하게 될 업무에 대한 설명</Text>
-              <Text variant="content"> · 담당하게 될 업무에 대한 설명</Text>
+              {descriptionLines.length > 0 ? (
+                descriptionLines.map((line, index) => (
+                  <Text key={index} variant="content">
+                    {line.trim() ? ` · ${line.trim()}` : line}
+                  </Text>
+                ))
+              ) : (
+                <Text variant="content"> · 업무 설명이 없습니다.</Text>
+              )}
             </div>
             <div className="card-apply-button">
-              <Button variant="sky">지원하기</Button>
+              <Button variant="sky" onClick={handleApply}>지원하기</Button>
             </div>
           </div>
         </div>
