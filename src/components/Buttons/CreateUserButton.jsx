@@ -31,7 +31,7 @@ const CreateUserButton = () => {
 
   const handleClick = () => {
     // TODO: 회원가입 페이지 구현 후 경로 수정
-    navigate('/signup');
+    navigate('/join/step1');
   };
 
   return <StyledCreateUserButton onClick={handleClick}>회원가입</StyledCreateUserButton>;
