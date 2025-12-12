@@ -11,6 +11,7 @@ const PaginationContainer = styled.div`
   width: fit-content;
   height: 32px;
   margin-left: auto; /* 오른쪽으로 밀기 */
+  margin-top: auto;
 `;
 
 
@@ -56,8 +57,6 @@ const Page = styled.button`
   cursor: pointer;
   transition: all 0.2s;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
@@ -85,8 +84,6 @@ const Ellipsis = styled.div`
   background: #FFFFFF;
   border-radius: 8px;
 
-  font-family: 'Noto Sans KR';
-  font-style: normal;
   font-weight: 700;
   font-size: 13px;
   line-height: 16px;
