@@ -5,7 +5,7 @@ import Breadcrumb from '../components/Navigation/Breadcrumb';
 import SearchSection from '../sections/SearchSection/SearchSection';
 import CardGrid from '../sections/CardGrid/CardGrid';
 import defaultProfileImage from '../assets/images/profile.png';
-import { getJobs } from '../services/api';
+import { getVolunteers } from '../services/api';
 import Pagination from '../components/Pagination/Pagination';
 
 const PageWrapper = styled.div`
@@ -31,7 +31,7 @@ const ErrorMessage = styled.div`
 `;
 
 const JobApplicantSearch = () => {
-  const [jobs, setJobs] = useState([]);
+  const [volunteers, setVolunteers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState('전체');
@@ -40,42 +40,100 @@ const JobApplicantSearch = () => {
   
   const ITEMS_PER_PAGE = 15; // 5줄 x 3개
 
-  // 공고 데이터 로드
+  // 개인 유저(구직자) 데이터 로드
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchVolunteers = async () => {
       try {
         setLoading(true);
         setError(null);
-        const jobsData = await getJobs();
-        // 백엔드 응답을 profile3 카드 형식으로 변환
-        const formattedCards = jobsData.map((job) => ({
-          id: job.id,
-          // 프로필 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
-          profileImage: job.thumbnail || defaultProfileImage,
-          name: job.companyName || '구직자', // 이름 (회사명 사용)
-          labels: job.position ? [job.position] : [], // 포지션을 라벨로 변환
-          email: `applicant${job.id}@example.com`, // 이메일 (더미 데이터)
-          role: job.position || '', // 역할 (포지션)
-          bio: job.title || '', // 소개 (공고 제목)
-          companyId: job.companyId,
-          status: job.status,
-        }));
+        console.log('📡 JobApplicantSearch - API 호출 시작');
+        const volunteersData = await getVolunteers();
+        console.log('📡 JobApplicantSearch - API 호출 완료');
+        console.log('🔍 JobApplicantSearch - API 응답:', volunteersData);
         
-        setJobs(formattedCards);
+        // API 응답이 객체 형태인 경우 data 속성에서 배열 추출
+        let volunteersArray = null;
+        if (volunteersData && typeof volunteersData === 'object') {
+          if (volunteersData.data && Array.isArray(volunteersData.data)) {
+            volunteersArray = volunteersData.data;
+          } else if (Array.isArray(volunteersData)) {
+            volunteersArray = volunteersData;
+          } else if (volunteersData.volunteers && Array.isArray(volunteersData.volunteers)) {
+            volunteersArray = volunteersData.volunteers;
+          }
+        }
+        
+        if (!volunteersArray || volunteersArray.length === 0) {
+          console.log('📝 등록된 구직자가 없습니다.');
+          setVolunteers([]);
+          setLoading(false);
+          return;
+        }
+        
+        // 백엔드 응답을 profile3 카드 형식으로 변환
+        const formattedCards = volunteersArray.map((volunteer) => {
+          // 백엔드 API 응답 구조에 맞춰 필드 매핑
+          const name = volunteer.name || '구직자';
+          const email = volunteer.email || '';
+          const phoneNumber = volunteer.phoneNumber || volunteer.phone_number || '';
+          const position = volunteer.position || '';
+          const thumbnailUrl = volunteer.thumbnailUrl || volunteer.thumbnail || null;
+          const intro = volunteer.intro || ''; // 백엔드에서 intro로 정의됨
+          
+          console.log('🔍 JobApplicantSearch - 유저 데이터:', {
+            id: volunteer.id,
+            name,
+            email,
+            phoneNumber,
+            position,
+            thumbnailUrl,
+            intro,
+          });
+          
+          return {
+            id: volunteer.id,
+            // 프로필 이미지: 업로드된 이미지가 있으면 사용, 없으면 기본 이미지
+            profileImage: thumbnailUrl || defaultProfileImage,
+            name: name,
+            labels: position ? [position] : [], // 포지션을 라벨로 변환
+            email: email,
+            phoneNumber: phoneNumber, // 폰번호 추가
+            role: position || '', // 역할 (포지션)
+            intro: intro || '', // 자기소개 (bio → intro로 변경)
+          };
+        });
+        
+        console.log('✅ JobApplicantSearch - 변환된 카드 목록:', formattedCards);
+        console.log('✅ JobApplicantSearch - 변환된 카드 개수:', formattedCards.length);
+        setVolunteers(formattedCards);
       } catch (err) {
-        console.error('❌ 구직자 목록 로드 실패:', err);
-        setError('구직자 목록을 불러오는데 실패했습니다.');
+        console.error('❌ JobApplicantSearch - 구직자 목록 로드 실패:', err);
+        console.error('❌ JobApplicantSearch - 에러 상세:', {
+          message: err.message,
+          response: err.response?.data,
+          status: err.response?.status,
+        });
+        
+        // 404 에러인 경우 특별 처리
+        if (err.message?.includes('404') || 
+            err.message?.includes('Not Found') ||
+            err.response?.status === 404) {
+          console.error('❌ JobApplicantSearch - 404 에러: /volunteers 엔드포인트를 찾을 수 없습니다.');
+          setError('구직자 목록 API를 찾을 수 없습니다. 백엔드 엔드포인트를 확인해주세요.');
+        } else {
+          setError('구직자 목록을 불러오는데 실패했습니다.');
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    fetchJobs();
+    fetchVolunteers();
   }, []); // 컴포넌트 마운트 시 한 번만 실행
 
-  // 필터와 검색어에 따라 jobs 필터링
-  const filteredJobs = useMemo(() => {
-    let result = [...jobs];
+  // 필터와 검색어에 따라 volunteers 필터링
+  const filteredVolunteers = useMemo(() => {
+    let result = [...volunteers];
 
     // 드롭다운 필터 적용 (labels 배열에서 검색)
     if (filter !== '전체') {
@@ -86,25 +144,25 @@ const JobApplicantSearch = () => {
         '블록체인': '블록체인'
       };
       const positionValue = positionMap[filter] || filter;
-      result = result.filter(job => 
-        job.labels && job.labels.some(label => label === positionValue)
+      result = result.filter(volunteer => 
+        volunteer.labels && volunteer.labels.some(label => label === positionValue)
       );
     }
 
     // 검색어 필터 적용 (name, email, role, bio에서 검색)
     if (searchTerm.trim() !== '') {
       const searchLower = searchTerm.toLowerCase();
-      result = result.filter(job => 
-        (job.name && job.name.toLowerCase().includes(searchLower)) ||
-        (job.email && job.email.toLowerCase().includes(searchLower)) ||
-        (job.role && job.role.toLowerCase().includes(searchLower)) ||
-        (job.bio && job.bio.toLowerCase().includes(searchLower)) ||
-        (job.labels && job.labels.some(label => label.toLowerCase().includes(searchLower)))
+      result = result.filter(volunteer => 
+        (volunteer.name && volunteer.name.toLowerCase().includes(searchLower)) ||
+        (volunteer.email && volunteer.email.toLowerCase().includes(searchLower)) ||
+        (volunteer.role && volunteer.role.toLowerCase().includes(searchLower)) ||
+        (volunteer.intro && volunteer.intro.toLowerCase().includes(searchLower)) ||
+        (volunteer.labels && volunteer.labels.some(label => label.toLowerCase().includes(searchLower)))
       );
     }
 
     return result;
-  }, [jobs, filter, searchTerm]);
+  }, [volunteers, filter, searchTerm]);
 
   // 필터나 검색어가 변경되면 첫 페이지로 리셋
   useEffect(() => {
@@ -112,10 +170,10 @@ const JobApplicantSearch = () => {
   }, [filter, searchTerm]);
 
   // 페이지네이션을 위한 계산
-  const totalPages = Math.ceil(filteredJobs.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredVolunteers.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const paginatedJobs = filteredJobs.slice(startIndex, endIndex);
+  const paginatedVolunteers = filteredVolunteers.slice(startIndex, endIndex);
 
   // 필터 변경 핸들러
   const handleFilterChange = (value) => {
@@ -161,40 +219,40 @@ const JobApplicantSearch = () => {
   }
 
   return (
-    <Layout >
-       <PageWrapper>
+    <Layout>
+      <PageWrapper>
         {/* 현재 위치 네비게이션 */}
-        <Breadcrumb
-          variant="breadcrumb"
-          items={['구직자 탐색']}
-          size="60px"
-        />
+        <Breadcrumb variant="breadcrumb" items={['구직자 탐색']} size="60px" />
 
         {/* 검색 영역 */}
-        <SearchSection 
+        <SearchSection
           onFilterChange={handleFilterChange}
           onSearch={handleSearch}
         >
-          {filteredJobs.length > 0
-            ? `총 ${filteredJobs.length}명의 구직자들을 모았어요 !`
+          {filteredVolunteers.length > 0
+            ? `총 ${filteredVolunteers.length}명의 구직자들을 모았어요 !`
             : '등록된 구직자가 없습니다.'}
         </SearchSection>
 
         {/* 카드 목록 */}
-        {filteredJobs.length > 0 ? (
+        {filteredVolunteers.length > 0 ? (
           <>
-          <CardGrid variant='profile3' spaceBetween={true} cards={paginatedJobs}/>
+            <CardGrid
+              variant="profile3"
+              spaceBetween={true}
+              cards={paginatedVolunteers}
+            />
 
-            <Pagination 
-              currentPage={currentPage} 
-              totalPages={totalPages} 
-              onPageChange={handlePageChange} 
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              onPageChange={handlePageChange}
             />
           </>
         ) : (
           <ErrorMessage>
-            {searchTerm || filter !== '전체' 
-              ? '검색 조건에 맞는 구직자가 없습니다.' 
+            {searchTerm || filter !== '전체'
+              ? '검색 조건에 맞는 구직자가 없습니다.'
               : '등록된 구직자가 없습니다.'}
           </ErrorMessage>
         )}

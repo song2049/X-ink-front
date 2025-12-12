@@ -163,6 +163,16 @@ export const getMyApplications = async () => {
   }
 };
 
+/**
+ * 전체 개인 유저(구직자) 목록 가져오기
+ * @returns {Promise<Array>} 개인 유저 목록
+ */
+export const getVolunteers = async () => {
+  return await fetchAPI('/jobapplications/volunteers', {
+    method: 'GET',
+  });
+};
+
 export default {
   getCurrentUser,
   logout,
@@ -176,4 +186,5 @@ export default {
   getJobById,
   applyToJob,
   getMyApplications,
+  getVolunteers,
 };

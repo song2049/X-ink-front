@@ -187,7 +187,7 @@ const ProfileRole1 = styled.span`
   line-height: 24px;
   display: flex;
   align-items: center;
-  text-align: right;
+  text-align:   ght;
   color: #3a4044;
 `;
 
@@ -265,13 +265,15 @@ const ProfileImage3 = styled.img`
 const ProfileName3 = styled.span`
   width: 180px;
   height: 20px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
   font-weight: 700;
   font-size: 18px;
   line-height: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
   text-align: center;
+  justify-content: center;
   color: #555555;
   flex: none;
   order: 1;
@@ -296,23 +298,23 @@ const ProfileLabels3 = styled.div`
   flex-grow: 0;
 `;
 
-
 const ProfileInfo3 = styled.span`
   width: 180px;
   height: 20px;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
   text-align: center;
+  justify-content: center;
   color: #555555;
   flex: none;
   align-self: stretch;
   flex-grow: 0;
 `;
-
 // ============================================
 // ProfileCard4 - 지원완료 카드 (220x246)
 // ============================================
@@ -469,10 +471,12 @@ const renderCardByVariant = (variant, props) => {
     profileImage,
     name,
     email,
+    phoneNumber,
     role,
     labels,
     profileTitle,
-    bio,
+    bio, // eslint-disable-line no-unused-vars
+    intro,
     isApplied,
     onClick,
   } = props;
@@ -525,7 +529,7 @@ const renderCardByVariant = (variant, props) => {
       );
 
     // ProfileCard3 - 세로 프로필 카드 (220x276)
-    case 'profile3':
+    case 'profile3': {
       return (
         <StyledProfileCard3>
           <ProfileImage3
@@ -541,11 +545,16 @@ const renderCardByVariant = (variant, props) => {
                 </Label>
               ))}
           </ProfileLabels3>
-          <ProfileInfo3>{email}</ProfileInfo3>
-          <ProfileInfo3>{role}</ProfileInfo3>
-          <ProfileInfo3>{bio}</ProfileInfo3>
+          <ProfileInfo3 style={{ order: 3 }}>{email}</ProfileInfo3>
+          {phoneNumber && (
+            <ProfileInfo3 style={{ order: 4 }}>{phoneNumber}</ProfileInfo3>
+          )}
+          {intro && (
+            <ProfileInfo3 style={{ order: 5 }}>{intro}</ProfileInfo3>
+          )}
         </StyledProfileCard3>
       );
+    }
 
     // ProfileCard4 - 지원완료 카드 (220x246)
     case 'profile4':
