@@ -223,10 +223,10 @@ const Detail = () => {
         <div className="detail-company-info">
           <Label variant="primary">{job.position}</Label>
           <Text>({job.volunteerCount || 0}명 지원)</Text>
-          <Text variant="title" color="red">
+          <Text variant="title" color="red" size="16px">
             {job.dday || ''}
           </Text>
-          <Text variant="title">{getStatusText(job.status)}</Text>
+          <Text variant="title" size="16px" color="#838383">{getStatusText(job.status)}</Text>
         </div>
         <div className="detail-job-info">
           <div className="detail-company-info-img">

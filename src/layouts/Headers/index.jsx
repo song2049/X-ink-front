@@ -80,7 +80,7 @@ const CategoryLink = styled(NavLink)`
 
   &.active {
     color: #03407e;
-    border-bottom: 2px solid #03407e;
+    /* border-bottom: 2px solid #03407e; */
   }
 `;
 
