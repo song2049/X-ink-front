@@ -10,17 +10,13 @@ const StyledCompaniesProfile = styled.div`
   justify-content: center;
   flex-direction: row;
   gap: 29px;
-  margin-bottom: 40px;
 `;
 
 const StyledTop = styled.div`
-  margin-top: 40px;
-  margin-bottom: 20px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  margin-left: 330px;
   gap: 15px;
 
   & > .top-name > span:nth-child(1) {

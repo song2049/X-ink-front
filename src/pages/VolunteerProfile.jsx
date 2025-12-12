@@ -18,7 +18,6 @@ const StyledTop = styled.div`
   align-items: flex-start;
   flex-direction: column;
   justify-content: center;
-  margin-left: 330px;
   gap: 15px;
 
   & > .top-name > span:nth-child(1) {
